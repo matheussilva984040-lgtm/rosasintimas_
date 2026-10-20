@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosas Íntimas - Moda Íntima e Lingerie</title>
+    <style>
+        :root {
+            --cor-principal: #D87093;
+            --cor-secundaria: #FFF0F5;
+            --cor-texto: #4A2E35;
+            --cor-botao: #C71585;
+            --cor-botao-hover: #A0116B;
+            --branco: #FFFFFF;
+            --cinza-claro: #F9F9F9;
+            --sombra: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--cor-secundaria);
+            color: var(--cor-texto);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--branco);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--cor-botao);
+            letter-spacing: 1px;
+        }
+
+        .banner {
+            background: linear-gradient(rgba(216, 112, 147, 0.2), rgba(216, 112, 147, 0.4)), url('https://images.unsplash.com/photo-1616606145222-3ac861f6c7c8?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--cor-texto);
+            margin-bottom: 30px;
+        }
+
+        .banner h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .banner p {
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 3fr 1fr;
+            }
+        }
+
+        .vitrine {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .produto-card {
+            background-color: var(--branco);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px var(--sombra);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+
+        .produto-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .produto-foto {
+            width: 100%;
+            height: 200px;
+            background-color: var(--cor-secundaria);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .produto-nome {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .produto-preco {
+            font-size: 18px;
+            color: var(--cor-botao);
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .seletor-tamanho {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--cor-principal);
+            border-radius: 5px;
+            margin-bottom: 12px;
+            background-color: var(--branco);
+            color: var(--cor-texto);
+            outline: none;
+        }
+
+        .btn-add {
+            background-color: var(--cor-botao);
+            color: var(--branco);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-add:hover {
+            background-color: var(--cor-botao-hover);
+        }
+
+        .carrinho-container {
+            background-color: var(--branco);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--sombra);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .carrinho-titulo {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--cor-secundaria);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .carrinho-itens {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .carrinho-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--cinza-claro);
+            font-size: 14px;
+        }
+
+        .carrinho-item-info {
+            text-align: left;
+        }
+
+        .carrinho-item-remove {
+            color: red;
+            cursor: pointer;
+            font-weight: bold;
+            background: none;
+            border: none;
+            padding: 0 5px;
+        }
+
+        .carrinho-total {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-top: 10px;
+            border-top: 2px solid var(--cor-secundaria);
+        }
+
+        .btn-enviar {
+            background-color: #25D366;
+            color: var(--branco);
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-enviar:hover {
+            background-color: #128C7E;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            background-color: var(--branco);
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🌹 Rosas Íntimas</div>
+    </header>
+
+    <section class="banner">
+        <h1>Sinta-se Linda, Confortável e Única</h1>
+        <p>Coleções exclusivas Rosas Íntimas feitas para valorizar você todos os dias.</p>
+    </section>
+
+    <div class="container">
+        <!-- Vitrine de Produtos -->
+        <main class="vitrine" id="vitrine-produtos">
+            <!-- Os produtos serão gerados via JavaScript -->
+        </main>
+
+        <!-- Sacola de Compras -->
+        <aside class="carrinho-container">
+            <div class="carrinho-titulo">
+                <span>🛍️ Minha Sacola</span>
+                <span id="contador-itens">(0)</span>
+            </div>
+            <div class="carrinho-itens" id="carrinho-itens">
+                <!-- Itens adicionados aparecerão aqui -->
+            </div>
+            <div class="carrinho-total">
+                <span>Total:</span>
+                <span id="valor-total">R$ 0,00</span>
+            </div>
+            <button class="btn-enviar" onclick="enviarPedido()">📲 Enviar Pedido via WhatsApp</button>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Rosas Íntimas - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Configuração do WhatsApp da sua mãe (Altere apenas os números dentro das aspas)
+        const phoneNumber = "5500000000000";
+
+        // Lista com os 8 Slots de Produtos
+        const produtos = [
+            { id: 1, nome: "Conjunto Renda Romance", preco: 79.90, emoji: "👙" },
+            { id: 2, nome: "Body Rendado Elegance", preco: 119.90, emoji: "🩱" },
+            { id: 3, nome: "Kit Calcinhas Conforto (3 un.)", preco: 45.00, emoji: "🩲" },
+            { id: 4, nome: "Sutiã Push-Up Invisible", preco: 59.90, emoji: "👚" },
+            { id: 5, nome: "Pijama de Cetim Premium", preco: 139.90, emoji: "➿" },
+            { id: 6, nome: "Baby-doll Soft Noite", preco: 69.90, emoji: "👗" },
+            { id: 7, nome: "Corset Modelador Rosas", preco: 149.90, emoji: "⏳" },
+            { id: 8, nome: "Robe de Seda Glamour", preco: 129.90, emoji: "👘" }
+        ];
+
+        let carrinho = [];
+
+        // Função para renderizar os produtos na tela
+        function carregarProdutos() {
+            const vitrine = document.getElementById('vitrine-produtos');
+            vitrine.innerHTML = '';
+
+            produtos.forEach(produto => {
+                vitrine.innerHTML += `
+                    <div class="produto-card">
+                        <div>
+                            <div class="produto-foto">${produto.emoji}</div>
+                            <div class="produto-nome">${produto.nome}</div>
+                            <div class="produto-preco">R$ ${produto.preco.toFixed(2).replace('.', ',')}</div>
+                        </div>
+                        <div>
+                            <select class="seletor-tamanho" id="tamanho-${produto.id}">
+                                <option value="P">Tamanho P</option>
+                                <option value="M" selected>Tamanho M</option>
+                                <option value="G">Tamanho G</option>
+                                <option value="GG">Tamanho GG</option>
+                            </select>
+                            <button class="btn-add" onclick="adicionarAoCarrinho(${produto.id})">Adicionar à Sacola</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Função para adicionar o item direto no carrinho
+        function adicionarAoCarrinho(id) {
+            const produto = produtos.find(p => p.id === id);
+            const seletor = document.getElementById(`tamanho-${id}`);
+            const tamanhoSelecionado = seletor.value;
+
+            // Verifica se o mesmo produto com o mesmo tamanho já está no carrinho
+            const itemExistente = carrinho.find(item => item.id === id && item.tamanho === tamanhoSelecionado);
+
+            if (itemExistente) {
+                itemExistente.quantidade += 1;
+            } else {
+                carrinho.push({
+                    id: produto.id,
+                    nome: produto.nome,
+                    preco: produto.preco,
+                    tamanho: tamanhoSelecionado,
+                    quantidade: 1
+                });
+            }
+
+            atualizarCarrinho();
+        }
+
+        // Função para remover um item do carrinho
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+
+        // Função para atualizar os valores e a interface da sacola
+        function atualizarCarrinho() {
+            const listaItens = document.getElementById('carrinho-itens');
+            const contador = document.getElementById('contador-itens');
+            const totalElemento = document.getElementById('valor-total');
+            
+            listaItens.innerHTML = '';
+            let valorTotal = 0;
+            let totalItens = 0;
+
+            carrinho.forEach((item, index) => {
+                const subtotal = item.preco * item.quantidade;
+                valorTotal += subtotal;
+                totalItens += item.quantidade;
+
+                listaItens.innerHTML += `
+                    <div class="carrinho-item">
+                        <div class="carrinho-item-info">
+                            <strong>${item.nome}</strong><br>
+                            Tam: ${item.tamanho} | Qtd: ${item.quantidade}
+                        </div>
+                        <div>
+                            <span>R$ ${subtotal.toFixed(2).replace('.', ',')}</span>
+                            <button class="carrinho-item-remove" onclick="removerDoCarrinho(${index})">&times;</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            contador.innerText = `(${totalItens})`;
+            totalElemento.innerText = `R$ ${valorTotal.toFixed(2).replace('.', ',')}`;
+        }
+
+        // Função para gerar a mensagem organizada e abrir o WhatsApp
+        function enviarPedido() {
+            if (carrinho.length === 0) {
+                alert("Sua sacola está vazia! Adicione produtos antes de enviar o pedido.");
+                return;
+            }
+
+            let textoMensagem = "*Novo Pedido - Rosas Íntimas*\n\nOlá! Montei minha sacola no site e gostaria de encomendar as seguintes peças:\n\n";
+            let valorTotal = 0;
+
+            carrinho.forEach(item => {
+                const subtotal = item.preco * item.quantidade;
+                valorTotal += subtotal;
+                textoMensagem += `• *${item.nome}*\n  Tamanho: ${item.tamanho} | Qtd: ${item.quantidade}\n  Valor: R$ ${subtotal.toFixed(2).replace('.', ',')}\n\n`;
+            });
+
+            textoMensagem += `*Valor Total das Peças:* R$ ${valorTotal.toFixed(2).replace('.', ',')}`;
+            
+            // Codifica o texto para formato de link de URL
+            const urlLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(textoMensagem)}`;
+            
+            // Abre o WhatsApp em uma nova aba
+            window.open(urlLink, '_blank');
+        }
+
+        // Inicializa a vitrine ao carregar a página
+        window.onload = carregarProdutos;
+    </script>
+</body>
+</html>
